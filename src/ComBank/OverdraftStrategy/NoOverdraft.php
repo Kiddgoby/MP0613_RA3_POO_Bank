@@ -9,6 +9,8 @@
 
 class NoOverdraft 
 {
-
-   
+    public function isGrantOverdraftFunds(float $newAmount): bool
+    {
+        return false;
+    }
 }
