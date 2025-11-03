@@ -54,13 +54,14 @@ class BankAccount implements BankAccountInterface
             throw new BankAccountException("La cuenta ya está cerrada.");
         }
         $this->status = 'CLOSED';
-        echo "Cuenta cerrada.";
     }
     
     public function reopenAccount(): void
     {
         if ($this->status === 'OPEN') {
             throw new BankAccountException("La cuenta ya está abierta.");
+        }else{
+            $this->status = 'OPEN';
         }
     }
 
@@ -78,14 +79,19 @@ class BankAccount implements BankAccountInterface
     public function transaction(BankTransactionInterface $bankTransaction) : void
     {
         if ($this->status !='OPEN'){
-            echo "La cuenta está cerrada. No se pueden realizar transacciones.";
         }
-        
-        try {
-            $newBalance = $bankTransaction->applyTransaction($this);
-            $this->setBalance($newBalance);
-        }catch (InvalidOverdraftFundsException $e) {
-            throw new FailedTransactionException("Transacción fallida: " . $e->getMessage());
+        // la cuenta no puede quedar en negativo 
+
+        if ($this->balance < $bankTransaction->getAmount()) {
+            echo "Fondos insuficientes para la transacción.";
+        }
+        else {
+            try {
+                $newBalance = $bankTransaction->applyTransaction($this);
+                $this->setBalance($newBalance);
+            }catch (InvalidOverdraftFundsException $e) {
+                throw new FailedTransactionException("Transacción fallida: " . $e->getMessage());
+            }
         }
     }
 }

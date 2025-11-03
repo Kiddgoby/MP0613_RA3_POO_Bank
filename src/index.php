@@ -25,11 +25,21 @@ try {
     // show balance account
     $bankAccount1 = new BankAccount( 400);
     pl('My balance : ' . $bankAccount1->getBalance());
-    // close account
-        $bankAccount1->closeAccount();
-    // reopen account
-        $bankAccount1->reopenAccount();
+    
+// echo "<pre name=\"Main\">valorbank1: ".print_r($bankAccount1, true)."</pre>";
+// echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
 
+    // close account
+    $bankAccount1->closeAccount();
+    
+// echo "<pre name=\"Main\">valorbank1: ".print_r($bankAccount1, true)."</pre>";
+// echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
+
+    // reopen account
+    $bankAccount1->reopenAccount();
+echo "<pre name=\"Main\">valorbank1: ".print_r($bankAccount1, true)."</pre>";
+echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
+    
     // deposit +150 
     pl('Doing transaction deposit (+150) with current balance ' . $bankAccount1->getBalance());
     $bankAccount1->transaction(new DepositTransaction(150.0));
@@ -65,25 +75,31 @@ pl('--------- [Start testing bank account #2, Silver overdraft (100.0 funds)] --
 try {
     
     // show balance account
-    
+    // Create a new bank account with an ini al balance of 200.0. 
+    $bankAccount2 = new BankAccount(200.0);
+    pl('My balance : ' . $bankAccount2->getBalance());
     // deposit +100
     pl('Doing transaction deposit (+100) with current balance ' . $bankAccount2->getBalance());
+    $bankAccount2->transaction(new DepositTransaction(100.0));
     
     pl('My new balance after deposit (+100) : ' . $bankAccount2->getBalance());
 
     // withdrawal -300
     pl('Doing transaction deposit (-300) with current balance ' . $bankAccount2->getBalance());
+    $bankAccount2->transaction(new WithdrawTransaction(300.0));
     
     pl('My new balance after withdrawal (-300) : ' . $bankAccount2->getBalance());
 
     // withdrawal -50
     pl('Doing transaction deposit (-50) with current balance ' . $bankAccount2->getBalance());
+    $bankAccount2->transaction(new WithdrawTransaction(50.0));
     
     pl('My new balance after withdrawal (-50) with funds : ' . $bankAccount2->getBalance());
 
     // withdrawal -120
     pl('Doing transaction withdrawal (-120) with current balance ' . $bankAccount2->getBalance());
-    
+    // si la cuenta queda menos de -100.0, lanza excepción
+    $bankAccount2->transaction(new WithdrawTransaction(120.0));
 } catch (FailedTransactionException $e) {
     pl('Error transaction: ' . $e->getMessage());
 }
