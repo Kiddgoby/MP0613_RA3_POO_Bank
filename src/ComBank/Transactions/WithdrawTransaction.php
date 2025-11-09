@@ -22,14 +22,13 @@ class WithdrawTransaction extends BaseTransaction implements BankTransactionInte
 
   public function applyTransaction(BankAccountInterface $bankAccount): float
   {
-    return $bankAccount->getBalance() - $this->amount;
-
     if ($bankAccount->getBalance() < $this->amount) {
-      throw new InvalidOverdraftFundsException("Insufficient funds for withdrawal.");
+      echo "No tienes fondos suficientes para realizar el retiro.<br>";
     }
-  }
 
-  public function getTransactionInfo(): string
+    return $bankAccount->getBalance() - $this->amount;
+  }
+public function getTransactionInfo(): string
   {
     return "Withdrawal of " . $this->amount;
   }

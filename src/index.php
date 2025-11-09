@@ -25,20 +25,12 @@ try {
     // show balance account
     $bankAccount1 = new BankAccount( 400);
     pl('My balance : ' . $bankAccount1->getBalance());
-    
-// echo "<pre name=\"Main\">valorbank1: ".print_r($bankAccount1, true)."</pre>";
-// echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
 
     // close account
     $bankAccount1->closeAccount();
-    
-// echo "<pre name=\"Main\">valorbank1: ".print_r($bankAccount1, true)."</pre>";
-// echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
-
     // reopen account
     $bankAccount1->reopenAccount();
-echo "<pre name=\"Main\">valorbank1: ".print_r($bankAccount1, true)."</pre>";
-echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
+
     
     // deposit +150 
     pl('Doing transaction deposit (+150) with current balance ' . $bankAccount1->getBalance());
@@ -78,6 +70,10 @@ try {
     // Create a new bank account with an ini al balance of 200.0. 
     $bankAccount2 = new BankAccount(200.0);
     pl('My balance : ' . $bankAccount2->getBalance());
+
+    // echo "<pre name=\"Main\">valor bank2: ".print_r($bankAccount2, true)."</pre>";
+    // echo "<pre name=\"Main\" style=\"display:none;\">".__FILE__."-".__LINE__."</pre>";
+
     // deposit +100
     pl('Doing transaction deposit (+100) with current balance ' . $bankAccount2->getBalance());
     $bankAccount2->transaction(new DepositTransaction(100.0));

@@ -18,9 +18,9 @@ class SilverOverdraft implements OverdraftInterface
 {
     protected float $overdraftFunds;
 
-    public function __construct(float $overdraftFunds = 100.0)
+    public function __construct( float $limit = 100.00)
     {
-        $this->overdraftFunds = $overdraftFunds;
+        $this->overdraftFunds = $limit;
     }
 
     public function getOverdraftFundsAmount(): float
